@@ -1,0 +1,30 @@
+package Idris2-Hadron3
+version = 0.3.0
+authors = "Justin Kelly"
+brief   = "Layer 4a Subatomic Particle Matter Pipeline & Hadronic Confinement Algebra."
+
+depends = base
+        , Idris2-Multiset0
+        , Idris2-Multiset1
+        , Idris2-Geometry3
+        , Idris2-Physics3
+
+sourcedir = "src"
+
+modules = Compound.HadronicConfinement
+        , Compound.QuarkHadronAlgebra
+        , Compound.MesonAlgebra
+        , Compound.HeavyMesonAlgebra
+        , Compound.HyperonAlgebra
+        , Compound.ExoticMultiquark
+        , Compound.StandardModel
+        , Compound.ParticleScattering
+        , Compound.HadronizationEngine
+        , Compound.TypeIndexedMultiset
+        , Compound.GaugeBosons
+        , Compound.StellarNuclei
+        , Compound.StellarNucleosynthesis
+        , Compound.CosmicNucleosynthesis
+        , Compound.PlasmaRecombination
+        , Compound.AlphaReplication
+        , Math.MuonG2Anomaly

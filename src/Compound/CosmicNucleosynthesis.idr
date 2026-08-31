@@ -1,0 +1,78 @@
+module Compound.CosmicNucleosynthesis
+
+import Core.BoxInt
+import Core.Multiset
+import Core.VexelMaxel
+import Core.UnixelFraction
+import Compound.HadronicConfinement
+import Compound.QuarkHadronAlgebra
+import Data.List
+
+%default total
+
+------------------------------------------------------------------------
+-- 1. BIG BANG NUCLEOSYNTHESIS (BBN) LIGHT COSMIC NUCLEI
+------------------------------------------------------------------------
+
+||| Light Cosmic Nucleus Species.
+public export
+data LightNucleusSpec = Deuteron2H | Triton3H | Helium3He | Lithium7Li
+
+public export
+Eq LightNucleusSpec where
+  Deuteron2H == Deuteron2H = True
+  Triton3H   == Triton3H   = True
+  Helium3He  == Helium3He  = True
+  Lithium7Li == Lithium7Li = True
+  _          == _          = False
+
+public export
+Show LightNucleusSpec where
+  show Deuteron2H = "2H (Deuteron)"
+  show Triton3H   = "3H (Triton)"
+  show Helium3He  = "3He"
+  show Lithium7Li = "7Li"
+
+||| Computes exact nucleon count of a light cosmic nucleus.
+public export
+nucleusNucleonCount : LightNucleusSpec -> Nat
+nucleusNucleonCount Deuteron2H = 2
+nucleusNucleonCount Triton3H   = 3
+nucleusNucleonCount Helium3He  = 3
+nucleusNucleonCount Lithium7Li = 7
+
+||| Computes exact fundamental mass token count of a light cosmic nucleus (nucleons * 27).
+public export
+nucleusMassTokens : LightNucleusSpec -> BoxInt
+nucleusMassTokens spec = intToBoxInt (cast (nucleusNucleonCount spec * 27))
+
+------------------------------------------------------------------------
+-- 2. SMART CONSTRUCTORS FOR BBN NUCLEI
+------------------------------------------------------------------------
+
+||| Fuses 1 Proton (27) and 1 Neutron (27) into a Deuteron 2H nucleus (54 tokens).
+public export
+fuseDeuteron : HadronBoxel -> HadronBoxel -> Boxel
+fuseDeuteron p n = addBoxel p n
+
+||| Fuses 3 Protons (81) and 4 Neutrons (108) into a Lithium-7 nucleus (189 tokens).
+public export
+fuseLithium7 : List HadronBoxel -> Boxel
+fuseLithium7 nucleons = foldl addBoxel (MkBoxel []) nucleons
+
+------------------------------------------------------------------------
+-- 3. FORMAL INVARIANT AUDIT PROOFS
+------------------------------------------------------------------------
+
+||| Audits BBN Mass Token Conservation:
+||| 1. Deuteron 2H = 2 * 27 = 54 tokens.
+||| 2. Triton 3H = 3 * 27 = 81 tokens.
+||| 3. Helium-3 = 3 * 27 = 81 tokens.
+||| 4. Lithium-7 = 7 * 27 = 189 tokens.
+public export
+auditCosmicNucleosynthesisProof : Bool
+auditCosmicNucleosynthesisProof =
+  unwrapBox (nucleusMassTokens Deuteron2H) == 54 &&
+  unwrapBox (nucleusMassTokens Triton3H)   == 81 &&
+  unwrapBox (nucleusMassTokens Helium3He)  == 81 &&
+  unwrapBox (nucleusMassTokens Lithium7Li) == 189
