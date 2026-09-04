@@ -5,7 +5,7 @@ import Core.Multiset
 import Core.VexelMaxel
 import Core.UnixelFraction
 import Math.FourGeometries
-import Math.PauliExclusion
+import Math.ExclusionPrinciple
 import Compound.TypeIndexedMultiset
 import Compound.MesonAlgebra
 import Data.List

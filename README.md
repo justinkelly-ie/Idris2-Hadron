@@ -44,7 +44,8 @@
 Build the package using `pack`:
 
 ```bash
-pack build Idris2-Hadron.ipkg
+idris2 --build Idris2-Hadron.ipkg
+idris2 --install Idris2-Hadron.ipkg
 ```
 
 ---
