@@ -184,3 +184,8 @@ auditFullStandardModelCatalogProof =
   (qedAnnihilationVertex (SMPFermion LepE) (SMPFermion AntiLepE) == [SMPBoson Photon, SMPBoson Photon]) &&
   (weakBetaDecayVertex (SMPFermion QuarkD) == [SMPFermion QuarkU, SMPFermion LepE, SMPFermion AntiLepNuE]) &&
   (higgsGaugeDecayVertex (SMPBoson Higgs0) == [SMPBoson WPlus, SMPBoson WMinus])
+
+export
+%macro
+auditStandardModelCatalog : Elab (Compound.StandardModel.auditFullStandardModelCatalogProof = True)
+auditStandardModelCatalog = pure Refl

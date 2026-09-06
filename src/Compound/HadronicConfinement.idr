@@ -1,6 +1,7 @@
 module Compound.HadronicConfinement
 
 import Core.BoxInt
+import Core.ScaleTransform
 import Core.VexelMaxel
 import Math.LinAlgebra.TernaryClassifier
 import Geometry.LatticeTopology
@@ -155,6 +156,11 @@ auditHadronSingletBalanceProof =
   in isBalanced [qR, qG, qB, bSinglet] hadronSingletBalanceArray &&
      isDisjointBalance hadronSingletBalanceArray
 
+export
+%macro
+auditHadronSingletBalance : Elab (Compound.HadronicConfinement.auditHadronSingletBalanceProof = True)
+auditHadronSingletBalance = pure Refl
+
 ------------------------------------------------------------------------
 -- 5. UNIVERSAL TRANSFORM MULTISET HADRONIC CONFINEMENT INSTANCE
 ------------------------------------------------------------------------
@@ -185,3 +191,16 @@ auditQuarkToBaryonTransformProof =
   let quarkBox : Box ColorCharge = insertBox RedColor (intToBoxInt 1) (insertBox GreenColor (intToBoxInt 1) (insertBox BlueColor (intToBoxInt 1) emptyBox))
       pushed = applyPushforwardContraction quarkToBaryonTransform quarkBox
   in lookupBox BaryonSinglet pushed == intToBoxInt 3
+
+public export
+ScaleTransform ColorCharge Nat where
+  scaleTransform RedColor   = 1
+  scaleTransform GreenColor = 2
+  scaleTransform BlueColor  = 3
+
+public export
+InvertibleScaleTransform ColorCharge Nat where
+  invertScaleTransform Z = RedColor
+  invertScaleTransform (S Z) = RedColor
+  invertScaleTransform (S (S Z)) = GreenColor
+  invertScaleTransform (S (S (S _))) = BlueColor

@@ -1,5 +1,7 @@
 module Compound.TypeIndexedMultiset
 
+import Language.Reflection
+import Math.Singleton.Bit
 import Core.BoxInt
 import Core.Multiset
 import Core.VexelMaxel
@@ -12,6 +14,7 @@ import Compound.QuarkHadronAlgebra
 import Data.List
 import Data.Fin
 import Data.Vect
+
 
 %default total
 
@@ -227,4 +230,14 @@ auditTypeIndexedMultisetProof =
   (intToBoxInt 27 == intToBoxInt 27) &&
   (intToBoxInt 108 == intToBoxInt 108) &&
   (intToBoxInt 324 == intToBoxInt 324)
+
+public export
+auditTypeIndexedMultisetProofBit : Bit
+auditTypeIndexedMultisetProofBit = boolToBit auditTypeIndexedMultisetProof
+
+export
+%macro
+auditTypeIndexedMultiset : Elab (Compound.TypeIndexedMultiset.auditTypeIndexedMultisetProof = True)
+auditTypeIndexedMultiset = pure Refl
+
 
