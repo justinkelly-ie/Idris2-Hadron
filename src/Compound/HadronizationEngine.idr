@@ -49,7 +49,7 @@ fragmentQGPJet inputJet =
   where
     mapHadron : List StandardModelParticle -> List StandardModelParticle
     mapHadron [] = []
-    mapHadron (SMPBoson Gluon1 :: rest) =
+    mapHadron (SMPBoson GluonR :: rest) =
       SMPFermion QuarkU :: SMPFermion AntiQuarkU :: mapHadron rest
     mapHadron (p :: rest) = p :: mapHadron rest
 
@@ -70,7 +70,7 @@ isColorConlinedState (MkHadronizedJetState hadrons phase) =
 public export
 auditHadronizationEngineProof : Bool
 auditHadronizationEngineProof =
-  let jet = [SMPBoson Gluon1]
+  let jet = [SMPBoson GluonR]
       hadronState = fragmentQGPJet jet
   in (isColorConlinedState hadronState == True) &&
      (hadrons hadronState == [SMPFermion QuarkU, SMPFermion AntiQuarkU])

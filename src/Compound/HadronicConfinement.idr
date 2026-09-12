@@ -1,5 +1,6 @@
 module Compound.HadronicConfinement
 
+import Language.Reflection
 import Core.BoxInt
 import Core.ScaleTransform
 import Core.VexelMaxel

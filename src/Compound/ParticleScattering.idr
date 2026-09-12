@@ -58,8 +58,8 @@ public export
 qcdQuarkAnnihilationVertex : StandardModelParticle -> StandardModelParticle -> Maybe (List StandardModelParticle)
 qcdQuarkAnnihilationVertex p1 p2 =
   case (p1, p2) of
-    (SMPFermion QuarkU, SMPFermion AntiQuarkU) => Just [SMPBoson Gluon1, SMPBoson Gluon1]
-    (SMPFermion QuarkD, SMPFermion AntiQuarkD) => Just [SMPBoson Gluon1, SMPBoson Gluon1]
+    (SMPFermion QuarkU, SMPFermion AntiQuarkU) => Just [SMPBoson GluonR, SMPBoson GluonR]
+    (SMPFermion QuarkD, SMPFermion AntiQuarkD) => Just [SMPBoson GluonR, SMPBoson GluonR]
     _                                          => Nothing
 
 ||| Weak Boson Vector Fusion to Higgs Scalar & Photon: W+ + W- -> H0 + gamma.
@@ -82,5 +82,5 @@ public export
 auditParticleScatteringProof : Bool
 auditParticleScatteringProof =
   (qedLeptonScatteringVertex (SMPFermion LepE) (SMPFermion AntiLepE) == Just [SMPFermion LepMu, SMPFermion AntiLepMu]) &&
-  (qcdQuarkAnnihilationVertex (SMPFermion QuarkU) (SMPFermion AntiQuarkU) == Just [SMPBoson Gluon1, SMPBoson Gluon1]) &&
+  (qcdQuarkAnnihilationVertex (SMPFermion QuarkU) (SMPFermion AntiQuarkU) == Just [SMPBoson GluonR, SMPBoson GluonR]) &&
   (weakVectorBosonFusionVertex (SMPBoson WPlus) (SMPBoson WMinus) == Just [SMPBoson Higgs0, SMPBoson Photon])
