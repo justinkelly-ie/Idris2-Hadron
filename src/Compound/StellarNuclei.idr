@@ -52,7 +52,7 @@ stellarNucleusMassNumber Iron56      = 56
 ||| Evaluates fundamental mass token count (A * 27) of a stellar nucleus.
 public export
 stellarNucleusMassTokens : StellarNucleusSpec -> Core.BoxInt.BoxInt
-stellarNucleusMassTokens spec = Core.BoxInt.intToBoxInt (cast (stellarNucleusMassNumber spec * 27))
+stellarNucleusMassTokens spec = Core.BoxInt.natToBoxInt (stellarNucleusMassNumber spec * 27)
 
 ------------------------------------------------------------------------
 -- 2. SMART CONSTRUCTORS FOR STELLAR NUCLEI

@@ -44,7 +44,7 @@ nucleusNucleonCount Lithium7Li = 7
 ||| Computes exact fundamental mass token count of a light cosmic nucleus (nucleons * 27).
 public export
 nucleusMassTokens : LightNucleusSpec -> BoxInt
-nucleusMassTokens spec = intToBoxInt (cast (nucleusNucleonCount spec * 27))
+nucleusMassTokens spec = natToBoxInt (nucleusNucleonCount spec * 27)
 
 ------------------------------------------------------------------------
 -- 2. SMART CONSTRUCTORS FOR BBN NUCLEI
