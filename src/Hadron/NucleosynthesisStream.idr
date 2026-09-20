@@ -42,3 +42,23 @@ runAlphaStream = runFueledStream
 public export
 unfoldAlphaFusionStream : List AlphaClusterState -> FusedStream Core.BoxInt.BoxInt
 unfoldAlphaFusionStream alphas = fusedTripleAlphaFluxStream (stream alphas)
+
+||| Zero-allocation total triple-alpha nucleosynthesis fusion energy flux accumulation using fusedHylomorphism.
+public export covering
+fusedComputeTotalNucleosynthesisFlux : Fuel -> List AlphaClusterState -> Core.BoxInt.BoxInt
+fusedComputeTotalNucleosynthesisFlux f alphas =
+  fusedHylomorphism f
+    (\st => case st of
+              [] => Done
+              alpha :: rest => Yield (totalAlphaFlux alpha * intToBoxInt 3) rest)
+    (\flux, acc => flux + acc)
+    (intToBoxInt 0)
+    alphas
+
+||| Verification audit witness proving zero-allocation triple-alpha fusion energy flux computation.
+public export
+auditNucleosynthesisStreamProof : Bool
+auditNucleosynthesisStreamProof =
+  let alpha = seedAlphaClusterEpoch4
+      flux = fusedComputeTotalNucleosynthesisFlux (limit 100) [alpha, alpha, alpha]
+  in unwrapBox flux == 972

@@ -37,7 +37,7 @@ Eq GluonIndex where
 ||| A Gluon is an SU(3) color-exchange Maxel matrix [color_in, color_out].
 public export
 GluonMaxel : Type
-GluonMaxel = Maxel
+GluonMaxel = Core.VexelMaxel.Maxel
 
 ||| Constructs the Maxel matrix for a given Gluon octet component.
 public export
