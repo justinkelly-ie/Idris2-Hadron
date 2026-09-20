@@ -76,7 +76,7 @@ Eq ElectroweakBoson where
 ||| Converts a 27-token Neutron Boxel into a 27-token Proton Boxel,
 ||| preserving exact total token mass across the decay event.
 public export
-betaDecayNucleon : HadronBoxel -> (HadronBoxel, BoxInt)
+betaDecayNucleon : HadronBoxel -> (HadronBoxel, Core.BoxInt.BoxInt)
 betaDecayNucleon neutronBoxel =
   let protonBoxel = seedHadronBoxel
       releasedMass = totalBoxelWeight neutronBoxel - totalBoxelWeight protonBoxel
@@ -92,4 +92,4 @@ betaDecayNucleon neutronBoxel =
 public export
 auditGaugeBosonProof : Bool
 auditGaugeBosonProof =
-  (intToBoxInt 27 == intToBoxInt 27)
+  (Core.BoxInt.intToBoxInt 27 == Core.BoxInt.intToBoxInt 27)

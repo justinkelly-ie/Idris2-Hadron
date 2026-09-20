@@ -74,8 +74,8 @@ makeUpsilonBottomoniumVexel =
 ||| Evaluates mass tokens of a Heavy Meson Vexel (must equal 18 tokens).
 %inline
 public export
-observeHeavyMesonMassTokens : MesonVexel -> BoxInt
-observeHeavyMesonMassTokens (MkVexel [(u1, MkBoxInt w1), (u2, MkBoxInt w2)]) = MkBoxInt (w1 + w2)
+observeHeavyMesonMassTokens : MesonVexel -> Core.BoxInt.BoxInt
+observeHeavyMesonMassTokens (MkVexel [(u1, Core.BoxInt.MkBoxInt w1), (u2, Core.BoxInt.MkBoxInt w2)]) = Core.BoxInt.MkBoxInt (w1 + w2)
 observeHeavyMesonMassTokens m = totalVexelMass m
 
 ||| Audits Heavy Meson Mass Token Conservation:
@@ -85,5 +85,5 @@ observeHeavyMesonMassTokens m = totalVexelMass m
 public export
 auditHeavyMesonAlgebraProof : Bool
 auditHeavyMesonAlgebraProof =
-  (unwrapBox (observeHeavyMesonMassTokens makeJPsiCharmoniumVexel) == 18) &&
-  (unwrapBox (observeHeavyMesonMassTokens makeUpsilonBottomoniumVexel) == 18)
+  (Core.BoxInt.unwrapBox (observeHeavyMesonMassTokens makeJPsiCharmoniumVexel) == 18) &&
+  (Core.BoxInt.unwrapBox (observeHeavyMesonMassTokens makeUpsilonBottomoniumVexel) == 18)

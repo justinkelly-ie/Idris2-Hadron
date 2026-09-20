@@ -51,8 +51,8 @@ stellarNucleusMassNumber Iron56      = 56
 
 ||| Evaluates fundamental mass token count (A * 27) of a stellar nucleus.
 public export
-stellarNucleusMassTokens : StellarNucleusSpec -> BoxInt
-stellarNucleusMassTokens spec = intToBoxInt (cast (stellarNucleusMassNumber spec * 27))
+stellarNucleusMassTokens : StellarNucleusSpec -> Core.BoxInt.BoxInt
+stellarNucleusMassTokens spec = Core.BoxInt.intToBoxInt (cast (stellarNucleusMassNumber spec * 27))
 
 ------------------------------------------------------------------------
 -- 2. SMART CONSTRUCTORS FOR STELLAR NUCLEI
@@ -65,8 +65,8 @@ fuseNeon20 alphaCores = foldl addBoxel (MkBoxel []) alphaCores
 
 ||| Fuses 56 Nucleons (56 * 27) into an Iron-56 peak binding nucleus (1512 mass tokens).
 public export
-fuseIron56Tokens : List HadronBoxel -> BoxInt
-fuseIron56Tokens nucleons = foldl (+) (intToBoxInt 0) (map totalBoxelWeight nucleons)
+fuseIron56Tokens : List HadronBoxel -> Core.BoxInt.BoxInt
+fuseIron56Tokens nucleons = foldl (+) (Core.BoxInt.intToBoxInt 0) (map totalBoxelWeight nucleons)
 
 ------------------------------------------------------------------------
 -- 3. FORMAL AUDIT PROOFS
@@ -83,9 +83,9 @@ fuseIron56Tokens nucleons = foldl (+) (intToBoxInt 0) (map totalBoxelWeight nucl
 public export
 auditStellarNucleiProof : Bool
 auditStellarNucleiProof =
-  unwrapBox (stellarNucleusMassTokens Beryllium7)  == 189 &&
-  unwrapBox (stellarNucleusMassTokens Boron8)      == 216 &&
-  unwrapBox (stellarNucleusMassTokens Neon20)      == 540 &&
-  unwrapBox (stellarNucleusMassTokens Magnesium24) == 648 &&
-  unwrapBox (stellarNucleusMassTokens Silicon28)   == 756 &&
-  unwrapBox (stellarNucleusMassTokens Iron56)      == 1512
+  Core.BoxInt.unwrapBox (stellarNucleusMassTokens Beryllium7)  == 189 &&
+  Core.BoxInt.unwrapBox (stellarNucleusMassTokens Boron8)      == 216 &&
+  Core.BoxInt.unwrapBox (stellarNucleusMassTokens Neon20)      == 540 &&
+  Core.BoxInt.unwrapBox (stellarNucleusMassTokens Magnesium24) == 648 &&
+  Core.BoxInt.unwrapBox (stellarNucleusMassTokens Silicon28)   == 756 &&
+  Core.BoxInt.unwrapBox (stellarNucleusMassTokens Iron56)      == 1512

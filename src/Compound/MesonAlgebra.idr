@@ -78,7 +78,7 @@ makeKaonPlusVexel =
 ||| Observation: Total Mass Tokens of a Meson Vexel (must equal 18).
 %inline
 public export
-observeMesonMassTokens : MesonVexel -> BoxInt
+observeMesonMassTokens : MesonVexel -> Core.BoxInt.BoxInt
 observeMesonMassTokens m = totalVexelMass m
 
 ||| Verifies Color-Anticolor Neutrality on a Meson Vexel:
@@ -88,7 +88,7 @@ public export
 isMesonColorNeutral : MesonVexel -> Bool
 isMesonColorNeutral (MkVexel terms) =
   case terms of
-    [(s1, w1), (s2, w2)] => w1 == intToBoxInt 9 && w2 == intToBoxInt 9
+    [(s1, w1), (s2, w2)] => w1 == Core.BoxInt.intToBoxInt 9 && w2 == Core.BoxInt.intToBoxInt 9
     _ => False
 
 ------------------------------------------------------------------------
@@ -102,4 +102,4 @@ isMesonColorNeutral (MkVexel terms) =
 public export
 auditMesonAlgebraProof : Bool
 auditMesonAlgebraProof =
-  (intToBoxInt 18 == intToBoxInt 18)
+  (Core.BoxInt.intToBoxInt 18 == Core.BoxInt.intToBoxInt 18)

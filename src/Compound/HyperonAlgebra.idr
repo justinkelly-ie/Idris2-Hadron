@@ -66,16 +66,16 @@ makeLambdaZeroBoxel =
 ||| Evaluates mass tokens of a Hyperon Boxel (must equal 27 tokens = 1 amu).
 %inline
 public export
-observeHyperonMassTokens : HadronBoxel -> BoxInt
-observeHyperonMassTokens (MkBoxel [(v1, MkBoxInt w1), (v2, MkBoxInt w2), (v3, MkBoxInt w3)]) =
-  MkBoxInt (w1 + w2 + w3)
+observeHyperonMassTokens : HadronBoxel -> Core.BoxInt.BoxInt
+observeHyperonMassTokens (MkBoxel [(v1, Core.BoxInt.MkBoxInt w1), (v2, Core.BoxInt.MkBoxInt w2), (v3, Core.BoxInt.MkBoxInt w3)]) =
+  Core.BoxInt.MkBoxInt (w1 + w2 + w3)
 observeHyperonMassTokens b = totalBoxelWeight b
 
 ||| Verifies SU(3) color neutrality of a Hyperon Boxel.
 %inline
 public export
 isHyperonColorNeutral : HadronBoxel -> Bool
-isHyperonColorNeutral (MkBoxel [(MkVoxel x1 y1 z1, MkBoxInt w1), (MkVoxel x2 y2 z2, MkBoxInt w2), (MkVoxel x3 y3 z3, MkBoxInt w3)]) =
+isHyperonColorNeutral (MkBoxel [(MkVoxel x1 y1 z1, Core.BoxInt.MkBoxInt w1), (MkVoxel x2 y2 z2, Core.BoxInt.MkBoxInt w2), (MkVoxel x3 y3 z3, Core.BoxInt.MkBoxInt w3)]) =
   w1 == w2 && w2 == w3
 isHyperonColorNeutral b = isHadronBoxelColorNeutral b
 
@@ -90,5 +90,5 @@ isHyperonColorNeutral b = isHadronBoxelColorNeutral b
 public export
 auditHyperonAlgebraProof : Bool
 auditHyperonAlgebraProof =
-  (unwrapBox (observeHyperonMassTokens makeLambdaZeroBoxel) == 27) &&
+  (Core.BoxInt.unwrapBox (observeHyperonMassTokens makeLambdaZeroBoxel) == 27) &&
   isHyperonColorNeutral makeLambdaZeroBoxel

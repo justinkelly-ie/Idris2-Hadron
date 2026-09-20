@@ -57,7 +57,7 @@ tabulate27 = tabulate
 public export
 record HadronState where
   constructor MkHadronState
-  latticeGrid : Vect 27 BoxInt
+  latticeGrid : Vect 27 Core.BoxInt.BoxInt
 
 ||| Creates a balanced Hadronic Ground State at Epoch 3.
 ||| Injects 1 unit of Quark flux into each cell (9 Red + 9 Green + 9 Blue = 27 total flux).
@@ -73,7 +73,7 @@ seedHadronEpoch3 =
 
 ||| Computes the net color charge sum of a sector.
 public export
-sectorColorSum : ColorCharge -> HadronState -> BoxInt
+sectorColorSum : ColorCharge -> HadronState -> Core.BoxInt.BoxInt
 sectorColorSum targetColor (MkHadronState grid) =
   let cells = filter (\idx => cellColorSector idx == targetColor) (allFins 27)
   in foldl (\acc, idx => acc + index idx grid) (intToBoxInt 0) cells
@@ -94,7 +94,7 @@ isColorNeutral hadron =
 
 ||| Total Hadronic Valence Flux: Sum of all 27 cells.
 public export
-totalHadronFlux : HadronState -> BoxInt
+totalHadronFlux : HadronState -> Core.BoxInt.BoxInt
 totalHadronFlux (MkHadronState grid) = sumField27 grid
 
 ||| Step-Up to Epoch 3 Cosmic State: UniverseState 27 128 3.

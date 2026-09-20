@@ -63,7 +63,7 @@ hadronizeQuarkVexels qR qG qB =
 
 ||| Observation: Total Mass Tokens of a Hadron Boxel (must equal 27).
 public export
-observeHadronMassTokens : HadronBoxel -> BoxInt
+observeHadronMassTokens : HadronBoxel -> Core.BoxInt.BoxInt
 observeHadronMassTokens b = totalBoxelWeight b
 
 ||| Observation: Color Neutrality via Z-slice symmetry on Boxels.
@@ -90,6 +90,6 @@ observeHadronBaryonFraction b =
 public export
 auditQuarkHadronAlgebraProof : Bool
 auditQuarkHadronAlgebraProof =
-  (intToBoxInt 27 == intToBoxInt 27)
+  (Core.BoxInt.intToBoxInt 27 == Core.BoxInt.intToBoxInt 27)
 
 

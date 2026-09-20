@@ -2,7 +2,9 @@ module Compound.HadronizationEngine
 
 import Core.BoxInt
 import Core.Multiset
+import Math.Multiset
 import Compound.StandardModel
+
 import Data.Vect
 import Data.List
 
@@ -32,6 +34,31 @@ record HadronizedJetState where
   constructor MkHadronizedJetState
   hadrons  : List StandardModelParticle
   qgpPhase : QGPPhase
+
+------------------------------------------------------------------------
+-- 1B. PURE MULTISET QGP JET FRAGMENTATION & GALOIS FIBER PULLBACK (f^*)
+------------------------------------------------------------------------
+
+||| Pure Multiset Fiber Decay Map for QGP Jet Fragmentation:
+||| Gluons decay into u u_bar pairs (g -> u + u_bar), while color-singlet hadrons remain invariant.
+public export
+qgpDecayFiberMap : StandardModelParticle -> List StandardModelParticle
+qgpDecayFiberMap (SMPBoson GluonR) = [SMPFermion QuarkU, SMPFermion AntiQuarkU]
+qgpDecayFiberMap p                 = [p]
+
+||| Multiset-powered Hadronized Jet State.
+public export
+record MultisetHadronizedJetState where
+  constructor MkMultisetHadronizedJetState
+  hadronBag : Multiset BoxInt StandardModelParticle
+  qgpPhase  : QGPPhase
+
+||| Pure Galois Fiber Pullback (f^*) QGP jet fragmentation operator over Multiset BoxInt StandardModelParticle.
+public export
+fragmentQGPJetMultiset : Multiset BoxInt StandardModelParticle -> MultisetHadronizedJetState
+fragmentQGPJetMultiset jetBag =
+  let hadronBag = fiberPullback qgpDecayFiberMap jetBag
+  in MkMultisetHadronizedJetState hadronBag ConfinementHadronGas
 
 ------------------------------------------------------------------------
 -- 2. HADRONIZATION AUTOMATON (g -> q q_bar, q q_bar -> Pion, q q q -> Nucleon)
@@ -67,10 +94,22 @@ isColorConlinedState (MkHadronizedJetState hadrons phase) =
 ||| Audits Hadronization & QGP Jet Fragmentation Automaton:
 ||| 1. Verifies gluon jet splitting g -> u u_bar.
 ||| 2. Verifies transition to ConfinementHadronGas phase.
+||| 3. Pure multiset Galois fiber pullback jet fragmentation verified.
 public export
 auditHadronizationEngineProof : Bool
 auditHadronizationEngineProof =
   let jet = [SMPBoson GluonR]
       hadronState = fragmentQGPJet jet
-  in (isColorConlinedState hadronState == True) &&
-     (hadrons hadronState == [SMPFermion QuarkU, SMPFermion AntiQuarkU])
+      
+      initJet : Multiset BoxInt StandardModelParticle
+      initJet = AddM (SMPBoson GluonR) (intToBoxInt 1) ZeroM
+      mState  = fragmentQGPJetMultiset initJet
+      expectedBag : Multiset BoxInt StandardModelParticle
+      expectedBag = AddM (SMPFermion QuarkU) (intToBoxInt 1) (AddM (SMPFermion AntiQuarkU) (intToBoxInt 1) ZeroM)
+      
+      tList = (isColorConlinedState hadronState == True) &&
+              (hadrons hadronState == [SMPFermion QuarkU, SMPFermion AntiQuarkU])
+      tMultiset = (qgpPhase mState == ConfinementHadronGas) &&
+                  (hadronBag mState == expectedBag)
+  in tList && tMultiset
+
