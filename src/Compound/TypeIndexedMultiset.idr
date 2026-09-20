@@ -6,7 +6,7 @@ import Core.BoxInt
 import Core.Multiset
 import Core.VexelMaxel
 import Core.UnixelFraction
-import Math.FourGeometries
+import Core
 import Math.ExclusionPrinciple
 import Compound.HadronicConfinement
 import Compound.AlphaReplication

@@ -1,51 +1,16 @@
 module Compound.HadronicConfinement
 
 import Language.Reflection
-import Core.BoxInt
-import Core.ScaleTransform
-import Core.VexelMaxel
+import Core
+import Transform
 import Math.LinAlgebra.TernaryClassifier
 import Geometry.LatticeTopology
-import Core.UniverseState
-import Core.Multiset
-import Core.UnixelFraction
-import Core.TransformMultiset
 import Data.Vect
 import Data.Fin
 
 %default total
 
-||| The 3 fundamental QCD color charge sectors in Chromogeometry:
-||| - RedColor   (Hyperbolic / Timelike flux)
-||| - GreenColor (Parabolic / Lightlike null transport)
-||| - BlueColor  (Elliptic / Spacelike confinement canvas)
-public export
-data ColorCharge = RedColor | GreenColor | BlueColor
 
-public export
-Eq ColorCharge where
-  RedColor   == RedColor   = True
-  GreenColor == GreenColor = True
-  BlueColor  == BlueColor  = True
-  _          == _          = False
-
-public export
-Show ColorCharge where
-  show RedColor   = "Red"
-  show GreenColor = "Green"
-  show BlueColor  = "Blue"
-
-||| Classifies each cell index in Fin 27 into its exact QCD Color Sector.
-||| Uses the Z-axis coordinate layer (z = -1 -> Red, z = 0 -> Green, z = +1 -> Blue).
-||| Exactly 9 cells per color sector (9 Red + 9 Green + 9 Blue = 27 total cells).
-public export
-cellColorSector : Fin 27 -> ColorCharge
-cellColorSector idx =
-  let c = fin27ToCoord idx
-  in case coordZ c of
-       Bit3MinusOne => RedColor
-       Bit3Zero     => GreenColor
-       Bit3PlusOne  => BlueColor
 
 ||| Tabulator for 27-element vectors.
 public export
@@ -178,7 +143,7 @@ Eq HadronSector where
 ||| G: EllipticSector (Bound State Confinement)
 ||| Z: 1 / [27] (Exact 27-cell normalization)
 ||| J: ColorCharge -> BaryonSinglet (Pushforward Contraction Map)
-quarkToBaryonTransform : TransformMultiset ColorCharge HadronSector
+quarkToBaryonTransform : MaxelTransform ColorCharge HadronSector
 quarkToBaryonTransform = mkTransformBox EllipticSector (mkUnixelFraction (intToBoxInt 1) 27)
   [ ((RedColor, BaryonSinglet), intToBoxInt 1)
   , ((GreenColor, BaryonSinglet), intToBoxInt 1)
@@ -192,16 +157,3 @@ auditQuarkToBaryonTransformProof =
   let quarkBox : Box ColorCharge = insertBox RedColor (intToBoxInt 1) (insertBox GreenColor (intToBoxInt 1) (insertBox BlueColor (intToBoxInt 1) emptyBox))
       pushed = applyPushforwardContraction quarkToBaryonTransform quarkBox
   in lookupBox BaryonSinglet pushed == intToBoxInt 3
-
-public export
-ScaleTransform ColorCharge Nat where
-  scaleTransform RedColor   = 1
-  scaleTransform GreenColor = 2
-  scaleTransform BlueColor  = 3
-
-public export
-InvertibleScaleTransform ColorCharge Nat where
-  invertScaleTransform Z = RedColor
-  invertScaleTransform (S Z) = RedColor
-  invertScaleTransform (S (S Z)) = GreenColor
-  invertScaleTransform (S (S (S _))) = BlueColor
