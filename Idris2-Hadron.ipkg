@@ -23,6 +23,7 @@ modules = Hadron,
           Compound.StellarNuclei,
           Compound.StellarNucleosynthesis,
           Compound.TypeIndexedMultiset,
+          Hadron.HadronScaleTransforms,
           Hadron.NucleosynthesisStream,
           Math.MuonG2Anomaly
 

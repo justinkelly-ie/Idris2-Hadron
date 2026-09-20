@@ -16,6 +16,7 @@ import public Compound.StandardModel
 import public Compound.StellarNuclei
 import public Compound.StellarNucleosynthesis
 import public Compound.TypeIndexedMultiset
+import public Hadron.HadronScaleTransforms
 import public Hadron.NucleosynthesisStream
 import public Math.MuonG2Anomaly
 
