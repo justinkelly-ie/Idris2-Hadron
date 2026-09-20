@@ -9,6 +9,7 @@ import Math.ExclusionPrinciple
 import Compound.HadronicConfinement
 import Data.List
 import Data.Fin
+import Math.OnSeq.FusedStream
 
 %default total
 
@@ -91,5 +92,15 @@ public export
 auditQuarkHadronAlgebraProof : Bool
 auditQuarkHadronAlgebraProof =
   (Core.BoxInt.intToBoxInt 27 == Core.BoxInt.intToBoxInt 27)
+
+------------------------------------------------------------------------
+-- 6. DEFORESTED MAXEL MATRIX MULTIPLICATION
+------------------------------------------------------------------------
+
+||| Evaluates hadronic Maxel matrix product in O(1) stack allocations using Fused Stream Fusion.
+||| Deforests non-matching color cross-sector terms to zero-allocation Skip steps.
+%inline public export
+fusedHadronicMatrixProduct : FusedStream Math.OnSeq.FusedStream.Maxel -> FusedStream Math.OnSeq.FusedStream.Maxel -> FusedStream Math.OnSeq.FusedStream.Maxel
+fusedHadronicMatrixProduct = multiplyMaxels
 
 
