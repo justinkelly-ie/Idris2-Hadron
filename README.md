@@ -1,11 +1,11 @@
-# Idris2-Hadron
+# FinSc-Hadron
 
 [![Idris 2 Verification](https://img.shields.io/badge/Idris_2-0.8.0-blue.svg)](https://www.idris-lang.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 **Layer 4b Standard Model Decompositions, Quark Confinement & Hadronization Engine for Idris 2**
 
-`Idris2-Hadron` forms **Layer 4b** of the 10-layer constructive non-linear multiset science framework. It formalizes subatomic Standard Model particle decompositions, quark-hadron color confinement matrices ($R + G + B = 0$), light and heavy meson algebras, strangeness hyperons, exotic multiquarks (tetraquarks, pentaquarks), high-energy 2-to-2 scattering kinematics, hadronization automata, and stellar/cosmic nucleosynthesis networks.
+`FinSc-Hadron` forms **Layer 4b** of the 10-layer constructive non-linear multiset science framework. It formalizes subatomic Standard Model particle decompositions, quark-hadron color confinement matrices ($R + G + B = 0$), light and heavy meson algebras, strangeness hyperons, exotic multiquarks (tetraquarks, pentaquarks), high-energy 2-to-2 scattering kinematics, hadronization automata, and stellar/cosmic nucleosynthesis networks.
 
 ---
 
@@ -41,8 +41,8 @@
 ## 🚀 Building & Installing
 
 ```bash
-idris2 --build Idris2-Hadron.ipkg
-idris2 --install Idris2-Hadron.ipkg
+idris2 --build FinSc-Hadron.ipkg
+idris2 --install FinSc-Hadron.ipkg
 ```
 
 ---
